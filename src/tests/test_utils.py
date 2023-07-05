@@ -1,3 +1,4 @@
+import time
 import unittest
 
 from tests.shared_test_setup import TestSetUp
@@ -6,6 +7,7 @@ from tkpysdk.utils.order_utils import get_order_history
 from tkpysdk.utils.position_utils import create_position, CreatePositionResponse, get_position_details, \
     remove_liquidity_and_burn
 from tkpysdk.utils.quote_utils import get_erc20_balance, get_order_book
+from tkpysdk.utils.swap_utils import create_order, CreateOrderParams
 
 
 class TestUtils(TestSetUp):
@@ -71,6 +73,37 @@ class TestQuote(TestSetUp):
                                 },
                                 api_secret=self.API_SECRET,
                                 api_key=self.API_KEY)
+        self.order_book = result
+        print(f'result: {result}')
+        self.assertIsNotNone(result)
+
+
+class TestSwap(TestQuote):
+
+    def test_create_order(self):
+        self.test_get_order_book()
+        ask_price = self.order_book['bids'][0][0]
+        allowed_slippage = 0.001  # Replace with the actual value
+        wallet_address = self.WALLET_ADDRESS  # Replace with the actual value
+        amount_in = 200  # Replace with the actual value
+        trader_address = self.TRADER_ADDRESS  # Replace with the actual value
+        post_body = {
+            'routeHashes': [self.order_book['bids'][0][2]],
+            'expireTimestamp': int(time.time() + 12),
+            'walletAddress': wallet_address,
+            'amountIn': amount_in,
+            'amountOutMin': (amount_in / ask_price) * (1 - allowed_slippage),
+            'strategyId': 1,
+            'strategyType': 2,
+            'traderAddress': trader_address,
+            'newClientOrderId': f"test-{int(time.time())}",
+            'dynamicGasPrice': False,
+            'estimateGasOnly': True
+        }
+        result = create_order(api_key=self.API_KEY,
+                              api_secret=self.API_SECRET,
+                              network=Network.celo,
+                              post_body=post_body)
         print(result)
         self.assertIsNotNone(result)
 

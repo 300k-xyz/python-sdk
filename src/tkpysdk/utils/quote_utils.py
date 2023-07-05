@@ -40,6 +40,23 @@ def get_erc20_balance(api_key: str, api_secret: str, network: Network, query: Di
 
 
 def get_order_book(api_key: str, api_secret: str, network: Network, query: Dict[str, any]) -> OrderbookResponse:
+    """
+
+    @param api_key:
+    @param api_secret:
+    @param network:
+    @param query: format:
+                    {
+                    symbol: string;
+                    side: 'bid' | 'ask';
+                    // if LINK/USDC, can use amountUSD to specify how much USD trade to quote
+                    amountUSD?: number;
+                    // if LINK/WETH, can use amountQuote to specify how much WETH worth of trade to quote
+                    amountQuote?: number;
+                  }
+    @return:
+    """
+
     ts = int(time.time() * 1000)
     path = f"/api/{network.value}/v1/rfq/orderbook"
     url = f"{BASE_URL_300K_API}{path}"

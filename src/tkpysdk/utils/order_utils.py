@@ -17,6 +17,21 @@ def get_order_history(
         network: Network,
         query: Dict[str, Optional[Union[str, int]]]
 ):
+    """
+
+    @param api_key:
+    @param api_secret:
+    @param network:
+    @param query: format: {
+                            walletAddress: string;
+                            startTime?: number;
+                            endTime?: number;
+                            limit?: number;
+                            tokenInSymbol?: string;
+                            tokenOutSymbol?: string;
+                            }
+    @return:
+    """
     ts = int(time.time() * 1000)
     path = f"/api/{network.value}/v1/history-orders"
     url = urljoin(BASE_URL_300K_API, path)

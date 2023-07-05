@@ -65,6 +65,31 @@ def create_position(api_key: str,
                     api_secret: str,
                     network: Network,
                     post_body: Dict[str, any]) -> CreatePositionResponse:
+    """
+
+    @param api_key:
+    @param api_secret:
+    @param network:
+    @param post_body: format: {
+                                traderAddress: string;
+                                walletAddress: string;
+                                token0: string;
+                                token1: string;
+                                amount0Desired: number;
+                                amount1Desired: number;
+                                priceLower: string;
+                                priceUpper: string;
+                                fee: number;
+                                burnPositionId?: number;
+                                newClientOrderId?: string;
+                                gasPrice?: string;
+                                maxPriorityFeePerGas?: string;
+                                estimateGasOnly?: boolean;
+                                strategyId?: number;
+                                strategyType?: number;
+                              }
+    @return:
+    """
     ts = int(time.time() * 1000)
     path = f"/api/{network.value}/v1/v3-position"
     url = f"{BASE_URL_300K_API}{path}"
@@ -112,6 +137,25 @@ def get_position_details(network: Network,
 
 
 def remove_liquidity_and_burn(api_key: str, api_secret: str, network: Network, post_body: Dict[str, any]):
+    """
+
+    @param api_key:
+    @param api_secret:
+    @param network:
+    @param post_body: format: {
+                                positionId: number;
+                                walletAddress: string;
+                                traderAddress: string;
+                                newClientOrderId?: string;
+                                nonce?: number;
+                                gasPrice?: string;
+                                maxPriorityFeePerGas?: string;
+                                estimateGasOnly?: boolean;
+                                strategyId?: number;
+                                strategyType?: number;
+                              }
+    @return:
+    """
     ts = int(time.time() * 1000)
     path = f"/api/{network.value}/v1/remove-v3-position"
     url = f"{BASE_URL_300K_API}{path}"

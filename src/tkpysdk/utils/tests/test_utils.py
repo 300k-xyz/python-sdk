@@ -25,7 +25,6 @@ class TestUtils(unittest.TestCase):
             get_chain_id_from_network("Ray's RandomID")
         self.assertTrue('getChainIdFromNetwork unsupported network' in str(context.exception))
 
-
         # Test get_network_from_chain_id
         self.assertEqual('ethereum', Network.ethereum.value)
         self.assertEqual('ethereum', get_network_from_chain_id(ChainId.MAINNET).value)
@@ -36,6 +35,7 @@ class TestUtils(unittest.TestCase):
         with self.assertRaises(ValueError) as context:
             get_network_from_chain_id("randomtestingstringrayishandsome")
         self.assertTrue('unsupported chainId' in str(context.exception))
+
 
 if __name__ == '__main__':
     unittest.main()

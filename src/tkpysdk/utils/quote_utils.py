@@ -27,6 +27,17 @@ class OrderbookResponse:
 
 
 def get_erc20_balance(api_key: str, api_secret: str, network: Network, query: Dict[str, str]) -> str:
+    """
+
+    @param api_key:
+    @param api_secret:
+    @param network:
+    @param query: formate: {
+                            walletAddress: string;
+                            erc20TokenAddress: string;
+                          }
+    @return:
+    """
     ts = int(time.time() * 1000)
     path = f"/api/{network.value}/v1/get-balance"
     url = f"{BASE_URL_300K_API}{path}"

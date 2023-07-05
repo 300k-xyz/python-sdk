@@ -1,1 +1,1 @@
-from .signature import *
+from tkpysdk.utils.signature import *

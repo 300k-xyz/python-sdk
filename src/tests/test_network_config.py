@@ -8,7 +8,7 @@ from tkpysdk.utils.config import BASE_URL_300K_API
 from tkpysdk.utils.network import get_chain_id_from_network, Network, ChainId, get_network_from_chain_id
 
 
-class TestUtils(unittest.TestCase):
+class TestNetworkAndConfig(unittest.TestCase):
     def test_config(self):
         self.assertEqual('https://api.300k.xyz', BASE_URL_300K_API)  # add assertion here
 

@@ -37,6 +37,7 @@ result = create_order(api_key=self.API_KEY,
   api_secret=self.API_SECRET,
   network=self.NETWORK,
   post_body=post_body)
+print(result)
 ```
 
 ### more usage examples

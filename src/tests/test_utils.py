@@ -101,7 +101,7 @@ class UnitTestQuote(UnitTestBase):
 class UnitTestSwap(UnitTestBase):
 
     def test_create_order(self):
-        result = get_order_book(network=self.NETWORK,
+        order_book = get_order_book(network=self.NETWORK,
                                 query={
                                     'symbol': 'CELO/cUSD',
                                     'side': 'bid',
@@ -109,7 +109,6 @@ class UnitTestSwap(UnitTestBase):
                                 },
                                 api_secret=self.API_SECRET,
                                 api_key=self.API_KEY)
-        order_book = result
         ask_price = order_book['bids'][0][0]
         allowed_slippage = 0.001  # Replace with the actual value
         wallet_address = self.WALLET_ADDRESS  # Replace with the actual value

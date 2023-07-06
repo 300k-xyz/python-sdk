@@ -1,6 +1,6 @@
 # 300k-python-sdk
 
-pip install git+https://github.com/300k-xyz/python-sdk.git#egg=tkpysdk
+pip install tkpysdk
  
  ### usage
 ```

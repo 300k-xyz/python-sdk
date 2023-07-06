@@ -37,7 +37,6 @@ def create_order(api_key: str, api_secret: str, network: str, post_body: Dict[st
     @param timeout:
     @return:
     """
-    ts = int(time.time() * 1000)
     path = f"/api/{network}/v1/order"
     url = f"{BASE_URL_300K_API}{path}"
 

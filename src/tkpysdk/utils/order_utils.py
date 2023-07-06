@@ -30,14 +30,12 @@ def get_order_history(
                             }
     @return:
     """
-    ts = int(time.time() * 1000)
     path = f"/api/{network}/v1/history-orders"
     url = urljoin(BASE_URL_300K_API, path)
     headers = create_300k_header(method='GET',
                                  path=path,
                                  api_secret=api_secret,
                                  api_key=api_key,
-                                 post_data=query,
-                                 ts=ts)
+                                 post_data=query)
     res = requests.get(url, params=query, headers=headers)
     return res.json()

@@ -22,7 +22,7 @@ class TestNetworkAndConfig(unittest.TestCase):
 
     def test_get_chain_id_from_network_throw_error(self):
         with self.assertRaises(ValueError) as context:
-            get_chain_id_from_network("Ray's RandomID")
+            get_chain_id_from_network("invalid_network")
         self.assertTrue('getChainIdFromNetwork unsupported network' in str(context.exception))
 
     def test_get_network_from_chain_id(self):
@@ -32,8 +32,9 @@ class TestNetworkAndConfig(unittest.TestCase):
         self.assertEqual('polygon', get_network_from_chain_id(ChainId.POLYGON))
 
     def test_get_network_from_chain_id_throw_error(self):
+        invalid_chain_id = "invalid_chain_id"
         with self.assertRaises(ValueError) as context:
-            get_network_from_chain_id("randomtestingstringrayishandsome")
+            get_network_from_chain_id(invalid_chain_id)
         self.assertTrue('unsupported chainId' in str(context.exception))
 
 

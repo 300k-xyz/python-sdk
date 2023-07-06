@@ -54,11 +54,10 @@ def create_position(api_key: str,
                                       events: any;
                                     }
     """
-    ts = int(time.time() * 1000)
+    
     path = f"/api/{network}/v1/v3-position"
     url = f"{BASE_URL_300K_API}{path}"
-    headers = create_300k_header(ts=ts,
-                                 method='POST',
+    headers = create_300k_header(method='POST',
                                  path=path,
                                  api_key=str(api_key),
                                  api_secret=str(api_secret),
@@ -106,11 +105,10 @@ def get_position_detail(network: str,
                                       poolAddress: string;
                                     }
     """
-    ts = int(time.time() * 1000)
+    
     path = f"/api/{network}/v1/v3-position-detail"
     url = f"{BASE_URL_300K_API}{path}?tokenId={token_id}"
-    headers = create_300k_header(ts=ts,
-                                 method='GET',
+    headers = create_300k_header(method='GET',
                                  path=path,
                                  api_key=api_key,
                                  api_secret=api_secret,
@@ -159,10 +157,10 @@ def get_position_details(network: str,
                                               poolAddress: string;
                                             }
     """
-    ts = int(time.time() * 1000)
+    
     path = f"/api/{network}/v1/v3-positions"
     url = f"{BASE_URL_300K_API}{path}?walletAddress={wallet_address}"
-    headers = create_300k_header(ts=ts, method='GET',
+    headers = create_300k_header(method='GET',
                                  path=path,
                                  api_key=api_key,
                                  api_secret=api_secret,
@@ -191,11 +189,10 @@ def remove_liquidity_and_burn(api_key: str, api_secret: str, network: str, post_
                               }
     @return:
     """
-    ts = int(time.time() * 1000)
+    
     path = f"/api/{network}/v1/remove-v3-position"
     url = f"{BASE_URL_300K_API}{path}"
-    headers = create_300k_header(ts=ts,
-                                 method='POST',
+    headers = create_300k_header(method='POST',
                                  path=path,
                                  api_key=api_key,
                                  api_secret=api_secret,

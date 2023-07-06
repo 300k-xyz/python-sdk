@@ -9,9 +9,7 @@ from dataclasses import dataclass
 import requests
 from typing import Optional, Tuple, List, Dict, Any
 
-from tkpysdk import create_300k_signature
-from tkpysdk.utils.config import BASE_URL_300K_API
-from tkpysdk.utils.network import Network
+from tkpysdk import create_300k_signature, create_300k_header, BASE_URL_300K_API, Network
 
 
 QuoteArr = Tuple[float, float, str, str, float]
@@ -26,7 +24,7 @@ class OrderbookResponse:
     bids: Optional[List[QuoteArr]] = None
 
 
-def get_erc20_balance(api_key: str, api_secret: str, network: Network, query: Dict[str, str]) -> str:
+def get_erc20_balance(api_key: str, api_secret: str, network: str, query: Dict[str, str]) -> str:
     """
 
     @param api_key:
@@ -39,7 +37,7 @@ def get_erc20_balance(api_key: str, api_secret: str, network: Network, query: Di
     @return:
     """
     ts = int(time.time() * 1000)
-    path = f"/api/{network.value}/v1/get-balance"
+    path = f"/api/{network}/v1/get-balance"
     url = f"{BASE_URL_300K_API}{path}"
     headers = {
         'X-APIKEY': api_key,
@@ -50,7 +48,7 @@ def get_erc20_balance(api_key: str, api_secret: str, network: Network, query: Di
     return res.json()
 
 
-def get_order_book(api_key: str, api_secret: str, network: Network, query: Dict[str, any]) -> Dict[str, Any]:
+def get_order_book(api_key: str, api_secret: str, network: str, query: Dict[str, any]) -> Dict[str, Any]:
     """
 
     @param api_key:
@@ -76,13 +74,14 @@ def get_order_book(api_key: str, api_secret: str, network: Network, query: Dict[
     """
 
     ts = int(time.time() * 1000)
-    path = f"/api/{network.value}/v1/rfq/orderbook"
+    path = f"/api/{network}/v1/rfq/orderbook"
     url = f"{BASE_URL_300K_API}{path}"
-    headers = {
-        'X-APIKEY': api_key,
-        'X-TS': str(ts),
-        'X-SIGNATURE': create_300k_signature(ts, 'GET', path, api_secret, {})
-    }
+    headers = create_300k_header(method='GET',
+                                 path=path,
+                                 api_key=api_key,
+                                 api_secret=api_secret,
+                                 post_data={},
+                                 ts=ts)
     amount_usd = query.get('amountUSD')
     amount_quote = query.get('amountQuote')
     if not amount_usd and not amount_quote:

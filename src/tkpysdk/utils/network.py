@@ -37,13 +37,13 @@ class ChainId(Enum):
 
 
 network_to_chainid_map = {
-    Network.ethereum: ChainId.MAINNET,
-    Network.arbitrum: ChainId.ARBITRUM_ONE,
-    Network.polygon: ChainId.POLYGON,
-    Network.bsc: ChainId.BSC,
-    Network.celo: ChainId.CELO,
-    Network.optimism: ChainId.OPTIMISM,
-    Network.avalanche: ChainId.AVALANCHE
+    Network.ethereum.value: ChainId.MAINNET,
+    Network.arbitrum.value: ChainId.ARBITRUM_ONE,
+    Network.polygon.value: ChainId.POLYGON,
+    Network.bsc.value: ChainId.BSC,
+    Network.celo.value: ChainId.CELO,
+    Network.optimism.value: ChainId.OPTIMISM,
+    Network.avalanche.value: ChainId.AVALANCHE
 }
 
 chainid_to_network_map = {
@@ -57,7 +57,7 @@ chainid_to_network_map = {
 }
 
 
-def get_chain_id_from_network(network: Network) -> ChainId:
+def get_chain_id_from_network(network: str) -> ChainId:
     if network in network_to_chainid_map:
         return network_to_chainid_map[network]
     else:

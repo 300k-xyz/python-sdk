@@ -12,26 +12,28 @@ class TestNetworkAndConfig(unittest.TestCase):
     def test_config(self):
         self.assertEqual('https://api.300k.xyz', BASE_URL_300K_API)  # add assertion here
 
-    def test_network(self):
-        # Test get_chain_id_from_network
+    def test_get_chain_id_from_network(self):
         self.assertEqual(137, ChainId.POLYGON.value)
-        self.assertEqual(ChainId.POLYGON, get_chain_id_from_network(Network.polygon))
+        self.assertEqual(ChainId.POLYGON, get_chain_id_from_network(Network.polygon.value))
         self.assertEqual(43114, ChainId.AVALANCHE.value)
-        self.assertEqual(ChainId.AVALANCHE, get_chain_id_from_network(Network.avalanche))
+        self.assertEqual(ChainId.AVALANCHE, get_chain_id_from_network(Network.avalanche.value))
         self.assertEqual(1, ChainId.MAINNET.value)
-        self.assertEqual(ChainId.MAINNET, get_chain_id_from_network(Network.ethereum))
-        # Test throw error
+        self.assertEqual(ChainId.MAINNET, get_chain_id_from_network(Network.ethereum.value))
+
+    def test_get_chain_id_from_network_throw_error(self):
         with self.assertRaises(ValueError) as context:
             get_chain_id_from_network("Ray's RandomID")
         self.assertTrue('getChainIdFromNetwork unsupported network' in str(context.exception))
 
+    def test_get_network_from_chain_id(self):
         # Test get_network_from_chain_id
         self.assertEqual('ethereum', Network.ethereum.value)
         self.assertEqual('ethereum', get_network_from_chain_id(ChainId.MAINNET).value)
         self.assertEqual('bsc', get_network_from_chain_id(ChainId.BSC).value)
         self.assertEqual('celo', get_network_from_chain_id(ChainId.CELO).value)
         self.assertEqual('polygon', get_network_from_chain_id(ChainId.POLYGON).value)
-        # Test throw error
+
+    def test_get_network_from_chain_id_throw_error(self):
         with self.assertRaises(ValueError) as context:
             get_network_from_chain_id("randomtestingstringrayishandsome")
         self.assertTrue('unsupported chainId' in str(context.exception))

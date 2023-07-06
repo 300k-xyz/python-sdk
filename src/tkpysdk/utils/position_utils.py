@@ -7,14 +7,12 @@ from typing import Any, Dict, List
 import time
 import requests
 
-from tkpysdk import create_300k_header
-from tkpysdk.utils.config import BASE_URL_300K_API
-from tkpysdk.utils.network import Network
+from tkpysdk import create_300k_header, BASE_URL_300K_API, Network
 
 
 def create_position(api_key: str,
                     api_secret: str,
-                    network: Network,
+                    network: str,
                     post_body: Dict[str, any]) -> Dict[str, Any]:
     """
 
@@ -35,7 +33,7 @@ def create_position(api_key: str,
                                 newClientOrderId?: string;
                                 gasPrice?: string;
                                 maxPriorityFeePerGas?: string;
-                                estimateGasOnly?: boolean;
+                                estimateGasOnly?: boolean; # set estimateGasOnly = False to actually send transactions on chain
                                 strategyId?: number;
                                 strategyType?: number;
                               }
@@ -57,7 +55,7 @@ def create_position(api_key: str,
                                     }
     """
     ts = int(time.time() * 1000)
-    path = f"/api/{network.value}/v1/v3-position"
+    path = f"/api/{network}/v1/v3-position"
     url = f"{BASE_URL_300K_API}{path}"
     headers = create_300k_header(ts=ts,
                                  method='POST',
@@ -69,7 +67,7 @@ def create_position(api_key: str,
     return res.json()
 
 
-def get_position_detail(network: Network,
+def get_position_detail(network: str,
                         token_id: int,
                         api_key: str,
                         api_secret: str) -> Dict[str, Any]:
@@ -109,7 +107,7 @@ def get_position_detail(network: Network,
                                     }
     """
     ts = int(time.time() * 1000)
-    path = f"/api/{network.value}/v1/v3-position-detail"
+    path = f"/api/{network}/v1/v3-position-detail"
     url = f"{BASE_URL_300K_API}{path}?tokenId={token_id}"
     headers = create_300k_header(ts=ts,
                                  method='GET',
@@ -121,7 +119,7 @@ def get_position_detail(network: Network,
     return res.json()
 
 
-def get_position_details(network: Network,
+def get_position_details(network: str,
                          wallet_address: str,
                          api_key: str,
                          api_secret: str) -> List[Dict[str, Any]]:
@@ -162,7 +160,7 @@ def get_position_details(network: Network,
                                             }
     """
     ts = int(time.time() * 1000)
-    path = f"/api/{network.value}/v1/v3-positions"
+    path = f"/api/{network}/v1/v3-positions"
     url = f"{BASE_URL_300K_API}{path}?walletAddress={wallet_address}"
     headers = create_300k_header(ts=ts, method='GET',
                                  path=path,
@@ -173,7 +171,7 @@ def get_position_details(network: Network,
     return res.json()
 
 
-def remove_liquidity_and_burn(api_key: str, api_secret: str, network: Network, post_body: Dict[str, any]):
+def remove_liquidity_and_burn(api_key: str, api_secret: str, network: str, post_body: Dict[str, any]):
     """
 
     @param api_key:
@@ -187,7 +185,7 @@ def remove_liquidity_and_burn(api_key: str, api_secret: str, network: Network, p
                                 nonce?: number;
                                 gasPrice?: string;
                                 maxPriorityFeePerGas?: string;
-                                estimateGasOnly?: boolean;
+                                estimateGasOnly?: boolean; # set estimateGasOnly = False to actually send transactions on chain
                                 strategyId?: number;
                                 strategyType?: number;
                               }

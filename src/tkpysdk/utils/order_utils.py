@@ -6,15 +6,13 @@ import time
 from typing import Dict, Optional, Union
 from urllib.parse import urljoin
 import requests
-from tkpysdk import create_300k_signature
-from tkpysdk.utils.config import BASE_URL_300K_API
-from tkpysdk.utils.network import Network
+from tkpysdk import create_300k_header, BASE_URL_300K_API, Network
 
 
 def get_order_history(
         api_key: str,
         api_secret: str,
-        network: Network,
+        network: str,
         query: Dict[str, Optional[Union[str, int]]]
 ):
     """
@@ -33,12 +31,13 @@ def get_order_history(
     @return:
     """
     ts = int(time.time() * 1000)
-    path = f"/api/{network.value}/v1/history-orders"
+    path = f"/api/{network}/v1/history-orders"
     url = urljoin(BASE_URL_300K_API, path)
-    headers = {
-        'X-APIKEY': api_key,
-        'X-TS': str(ts),
-        'X-SIGNATURE': create_300k_signature(ts, 'GET', path, api_secret, query),
-    }
+    headers = create_300k_header(method='GET',
+                                 path=path,
+                                 api_secret=api_secret,
+                                 api_key=api_key,
+                                 post_data=query,
+                                 ts=ts)
     res = requests.get(url, params=query, headers=headers)
     return res.json()

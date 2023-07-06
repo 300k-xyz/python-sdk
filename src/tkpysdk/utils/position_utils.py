@@ -198,4 +198,7 @@ def remove_liquidity_and_burn(api_key: str, api_secret: str, network: str, post_
                                  api_secret=api_secret,
                                  post_data=post_body)
     res = requests.post(url, json=post_body, headers=headers, timeout=120)
-    return res.json()
+    if res.status_code == 200:
+        return res.json()
+    else:
+        return res.text

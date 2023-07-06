@@ -69,6 +69,7 @@ class UnitTestUtils(UnitTestBase):
                                            network=self.NETWORK,
                                            post_body=post_body)
         print(result)
+        self.assertEqual('Returned error: execution reverted: Invalid token ID', result)
 
 
 class UnitTestQuote(UnitTestBase):

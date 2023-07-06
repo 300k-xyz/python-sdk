@@ -7,7 +7,7 @@ import time
 from dataclasses import dataclass
 
 import requests
-from typing import Optional, Tuple, List, Dict
+from typing import Optional, Tuple, List, Dict, Any
 
 from tkpysdk import create_300k_signature
 from tkpysdk.utils.config import BASE_URL_300K_API
@@ -50,7 +50,7 @@ def get_erc20_balance(api_key: str, api_secret: str, network: Network, query: Di
     return res.json()
 
 
-def get_order_book(api_key: str, api_secret: str, network: Network, query: Dict[str, any]) -> OrderbookResponse:
+def get_order_book(api_key: str, api_secret: str, network: Network, query: Dict[str, any]) -> Dict[str, Any]:
     """
 
     @param api_key:
@@ -65,7 +65,14 @@ def get_order_book(api_key: str, api_secret: str, network: Network, query: Dict[
                     // if LINK/WETH, can use amountQuote to specify how much WETH worth of trade to quote
                     amountQuote?: number;
                   }
-    @return:
+    @return: In the form of: OrderbookResponse {
+                                                  symbol: string;
+                                                  amountUSD: number;
+                                                  lastUpdateTs: number;
+                                                  // [price, amountAsset, hash, path, gasUSD]
+                                                  asks?: QuoteArr[];
+                                                  bids?: QuoteArr[];
+                                                }
     """
 
     ts = int(time.time() * 1000)

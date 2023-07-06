@@ -10,7 +10,6 @@ Method = Literal['GET', 'POST', 'DELETE', 'PUT']
 
 def create_300k_signature(ts: int, method: Method, path: str, api_secret: str, post_data: Optional[Dict] = None) -> str:
     if post_data is not None and method != 'GET' and len(post_data.keys()) > 0:
-    # if post_data is not None and method != 'GET' and len(json.dumps(dataclasses.asdict(post_data))) > 0:
         encode_body = json.dumps(post_data, separators=(',', ':'))
     else:
         encode_body = ''

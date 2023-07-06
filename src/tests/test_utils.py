@@ -1,16 +1,16 @@
 import time
 import unittest
 
-from tests.shared_test_setup import TestSetUp
+from tests.shared_test_setup import UnitTestBase
 from tkpysdk.utils.network import Network
 from tkpysdk.utils.order_utils import get_order_history
-from tkpysdk.utils.position_utils import create_position, CreatePositionResponse, get_position_details, \
+from tkpysdk.utils.position_utils import create_position, get_position_details, \
     remove_liquidity_and_burn
 from tkpysdk.utils.quote_utils import get_erc20_balance, get_order_book
-from tkpysdk.utils.swap_utils import create_order, CreateOrderParams
+from tkpysdk.utils.swap_utils import create_order
 
 
-class TestUtils(TestSetUp):
+class UnitTestUtils(UnitTestBase):
 
     def test_order_utils(self):
         print(get_order_history(api_key=self.API_KEY,
@@ -52,7 +52,7 @@ class TestUtils(TestSetUp):
     #     self.assertIsNotNone(result)
 
 
-class TestQuote(TestSetUp):
+class UnitTestQuote(UnitTestBase):
     def test_get_erc20_balance(self):
         result = get_erc20_balance(network=Network.celo,
                                    query={
@@ -78,7 +78,7 @@ class TestQuote(TestSetUp):
         self.assertIsNotNone(result)
 
 
-class TestSwap(TestQuote):
+class TestSwap(UnitTestQuote):
 
     def test_create_order(self):
         self.test_get_order_book()

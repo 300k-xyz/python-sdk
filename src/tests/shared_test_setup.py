@@ -3,7 +3,7 @@ from dotenv import load_dotenv
 import os
 
 
-class TestSetUp(unittest.TestCase):
+class UnitTestBase(unittest.TestCase):
     def setUp(self):
         load_dotenv(dotenv_path="../../.env")
         self.WALLET_ADDRESS = os.getenv('walletAddress')

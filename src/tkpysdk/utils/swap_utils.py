@@ -4,7 +4,7 @@
 # Description:
 import dataclasses
 from dataclasses import dataclass
-from typing import Optional, List, Union
+from typing import Optional, List, Union, Dict, Any
 
 import time
 import requests
@@ -14,27 +14,33 @@ from tkpysdk.utils.config import BASE_URL_300K_API
 from tkpysdk.utils.network import Network
 
 
-@dataclass
-class CreateOrderParams:
-    route_hashes: List[str]
-    wallet_address: str
-    amount_in: float
-    amount_out_min: float
-    trader_address: str
-    expire_timestamp: Optional[int] = None
-    gas_price: Optional[str] = None
-    max_priority_fee_per_gas: Optional[str] = None
-    amount_in_raw: Optional[str] = None
-    nonce: Optional[int] = None
-    strategy_id: Optional[int] = None
-    strategy_type: Optional[int] = None
-    new_client_order_id: Optional[str] = None
-    dynamic_gas_price: Optional[bool] = None
-    estimate_gas_only: Optional[Union[bool, str]] = None
-
-
-def create_order(api_key: str, api_secret: str, network: Network, post_body: CreateOrderParams,
+def create_order(api_key: str, api_secret: str, network: Network, post_body: Dict[str, Any],
                  timeout: Optional[int] = 120000):
+    """
+
+    @param api_key:
+    @param api_secret:
+    @param network:
+    @param post_body: In the form of CreateOrderParams {
+                                                          routeHashes: string[];
+                                                          expireTimestamp?: number;
+                                                          gasPrice?: string;
+                                                          maxPriorityFeePerGas?: string;
+                                                          walletAddress: string;
+                                                          amountIn: number;
+                                                          amountInRaw?: string;
+                                                          amountOutMin: number;
+                                                          nonce?: number;
+                                                          strategyId?: number;
+                                                          strategyType?: number;
+                                                          traderAddress: string;
+                                                          newClientOrderId?: string;
+                                                          dynamicGasPrice?: boolean;
+                                                          estimateGasOnly?: boolean | 'skip';
+                                                        }
+    @param timeout:
+    @return:
+    """
     ts = int(time.time() * 1000)
     path = f"/api/{network.value}/v1/order"
     url = f"{BASE_URL_300K_API}{path}"

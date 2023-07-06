@@ -10,7 +10,7 @@ from tkpysdk import get_order_history, \
     create_order, remove_liquidity_and_burn
 
 
-class UnitTestUtils(UnitTestBase):
+class UnitTestPositions(UnitTestBase):
 
     def test_get_order_history(self):
         order_history = get_order_history(api_key=self.API_KEY,
@@ -98,7 +98,7 @@ class UnitTestQuote(UnitTestBase):
         self.assertIsNotNone(result)
 
 
-class TestSwap(UnitTestBase):
+class UnitTestSwap(UnitTestBase):
 
     def test_create_order(self):
         result = get_order_book(network=self.NETWORK,

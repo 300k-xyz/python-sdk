@@ -4,11 +4,10 @@
 # Description: test for utils
 import unittest
 
-from tkpysdk.utils.config import BASE_URL_300K_API
-from tkpysdk.utils.network import get_chain_id_from_network, ChainId, get_network_from_chain_id
+from tkpysdk import BASE_URL_300K_API, get_chain_id_from_network, ChainId, get_network_from_chain_id
 
 
-class TestNetworkAndConfig(unittest.TestCase):
+class UnitTestNetworkAndConfig(unittest.TestCase):
     def test_config(self):
         self.assertEqual('https://api.300k.xyz', BASE_URL_300K_API)  # add assertion here
 

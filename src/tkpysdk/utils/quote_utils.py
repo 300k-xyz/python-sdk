@@ -9,7 +9,7 @@ from dataclasses import dataclass
 import requests
 from typing import Optional, Tuple, List, Dict, Any
 
-from tkpysdk import create_300k_signature, create_300k_header, BASE_URL_300K_API, Network
+from tkpysdk import create_300k_signature, create_300k_header, BASE_URL_300K_API
 
 
 QuoteArr = Tuple[float, float, str, str, float]

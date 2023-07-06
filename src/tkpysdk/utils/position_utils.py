@@ -7,7 +7,7 @@ from typing import Any, Dict, List
 import time
 import requests
 
-from tkpysdk import create_300k_header, BASE_URL_300K_API, Network
+from tkpysdk import create_300k_header, BASE_URL_300K_API
 
 
 def create_position(api_key: str,
@@ -192,7 +192,7 @@ def remove_liquidity_and_burn(api_key: str, api_secret: str, network: str, post_
     @return:
     """
     ts = int(time.time() * 1000)
-    path = f"/api/{network.value}/v1/remove-v3-position"
+    path = f"/api/{network}/v1/remove-v3-position"
     url = f"{BASE_URL_300K_API}{path}"
     headers = create_300k_header(ts=ts,
                                  method='POST',

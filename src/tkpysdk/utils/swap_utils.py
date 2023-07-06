@@ -2,14 +2,12 @@
 # Created: 7/5/23
 # Version: 1.0
 # Description:
-import dataclasses
-from dataclasses import dataclass
-from typing import Optional, List, Union, Dict, Any
+from typing import Optional, Dict, Any
 
 import time
 import requests
 
-from tkpysdk import create_300k_header, BASE_URL_300K_API, Network
+from tkpysdk import create_300k_header, BASE_URL_300K_API
 
 
 def create_order(api_key: str, api_secret: str, network: str, post_body: Dict[str, Any],

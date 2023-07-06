@@ -37,23 +37,23 @@ class ChainId(Enum):
 
 
 network_to_chainid_map = {
-    Network.ethereum.value: ChainId.MAINNET,
-    Network.arbitrum.value: ChainId.ARBITRUM_ONE,
-    Network.polygon.value: ChainId.POLYGON,
-    Network.bsc.value: ChainId.BSC,
-    Network.celo.value: ChainId.CELO,
-    Network.optimism.value: ChainId.OPTIMISM,
-    Network.avalanche.value: ChainId.AVALANCHE
+    'ethereum': ChainId.MAINNET,
+    'arbitrum': ChainId.ARBITRUM_ONE,
+    'polygon': ChainId.POLYGON,
+    'bsc': ChainId.BSC,
+    'celo': ChainId.CELO,
+    'optimism': ChainId.OPTIMISM,
+    'avalanche': ChainId.AVALANCHE
 }
 
 chainid_to_network_map = {
-    ChainId.MAINNET: Network.ethereum,
-    ChainId.ARBITRUM_ONE: Network.arbitrum,
-    ChainId.POLYGON: Network.polygon,
-    ChainId.BSC: Network.bsc,
-    ChainId.CELO: Network.celo,
-    ChainId.OPTIMISM: Network.optimism,
-    ChainId.AVALANCHE: Network.avalanche
+    ChainId.MAINNET: 'ethereum',
+    ChainId.ARBITRUM_ONE: 'arbitrum',
+    ChainId.POLYGON: 'polygon',
+    ChainId.BSC: 'bsc',
+    ChainId.CELO: 'celo',
+    ChainId.OPTIMISM: 'optimism',
+    ChainId.AVALANCHE: 'avalanche'
 }
 
 
@@ -64,7 +64,7 @@ def get_chain_id_from_network(network: str) -> ChainId:
         raise ValueError(f"getChainIdFromNetwork unsupported network {network}")
 
 
-def get_network_from_chain_id(chain_id: ChainId) -> Network:
+def get_network_from_chain_id(chain_id: ChainId) -> str:
     if chain_id in chainid_to_network_map:
         return chainid_to_network_map[chain_id]
     else:

@@ -5,7 +5,7 @@
 import unittest
 
 from tkpysdk.utils.config import BASE_URL_300K_API
-from tkpysdk.utils.network import get_chain_id_from_network, Network, ChainId, get_network_from_chain_id
+from tkpysdk.utils.network import get_chain_id_from_network, ChainId, get_network_from_chain_id
 
 
 class TestNetworkAndConfig(unittest.TestCase):
@@ -14,11 +14,11 @@ class TestNetworkAndConfig(unittest.TestCase):
 
     def test_get_chain_id_from_network(self):
         self.assertEqual(137, ChainId.POLYGON.value)
-        self.assertEqual(ChainId.POLYGON, get_chain_id_from_network(Network.polygon.value))
+        self.assertEqual(ChainId.POLYGON, get_chain_id_from_network('polygon'))
         self.assertEqual(43114, ChainId.AVALANCHE.value)
-        self.assertEqual(ChainId.AVALANCHE, get_chain_id_from_network(Network.avalanche.value))
+        self.assertEqual(ChainId.AVALANCHE, get_chain_id_from_network('avalanche'))
         self.assertEqual(1, ChainId.MAINNET.value)
-        self.assertEqual(ChainId.MAINNET, get_chain_id_from_network(Network.ethereum.value))
+        self.assertEqual(ChainId.MAINNET, get_chain_id_from_network('ethereum'))
 
     def test_get_chain_id_from_network_throw_error(self):
         with self.assertRaises(ValueError) as context:
@@ -26,12 +26,10 @@ class TestNetworkAndConfig(unittest.TestCase):
         self.assertTrue('getChainIdFromNetwork unsupported network' in str(context.exception))
 
     def test_get_network_from_chain_id(self):
-        # Test get_network_from_chain_id
-        self.assertEqual('ethereum', Network.ethereum.value)
-        self.assertEqual('ethereum', get_network_from_chain_id(ChainId.MAINNET).value)
-        self.assertEqual('bsc', get_network_from_chain_id(ChainId.BSC).value)
-        self.assertEqual('celo', get_network_from_chain_id(ChainId.CELO).value)
-        self.assertEqual('polygon', get_network_from_chain_id(ChainId.POLYGON).value)
+        self.assertEqual('ethereum', get_network_from_chain_id(ChainId.MAINNET))
+        self.assertEqual('bsc', get_network_from_chain_id(ChainId.BSC))
+        self.assertEqual('celo', get_network_from_chain_id(ChainId.CELO))
+        self.assertEqual('polygon', get_network_from_chain_id(ChainId.POLYGON))
 
     def test_get_network_from_chain_id_throw_error(self):
         with self.assertRaises(ValueError) as context:

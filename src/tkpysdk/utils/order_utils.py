@@ -6,7 +6,7 @@ import time
 from typing import Dict, Optional, Union
 from urllib.parse import urljoin
 import requests
-from tkpysdk import create_300k_header, BASE_URL_300K_API, Network
+from tkpysdk import create_300k_header, BASE_URL_300K_API
 
 
 def get_order_history(

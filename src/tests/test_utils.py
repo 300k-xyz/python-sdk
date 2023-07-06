@@ -2,11 +2,12 @@ import time
 import unittest
 
 from tests.shared_test_setup import UnitTestBase
-from tkpysdk.utils.network import Network
-from tkpysdk.utils.order_utils import get_order_history
-from tkpysdk.utils.position_utils import create_position, get_position_details
-from tkpysdk.utils.quote_utils import get_erc20_balance, get_order_book
-from tkpysdk.utils.swap_utils import create_order
+from tkpysdk import get_order_history, \
+    create_position, \
+    get_position_details, \
+    get_erc20_balance, \
+    get_order_book, \
+    create_order
 
 
 class UnitTestUtils(UnitTestBase):
@@ -14,7 +15,7 @@ class UnitTestUtils(UnitTestBase):
     def test_order_utils(self):
         print(get_order_history(api_key=self.API_KEY,
                                 api_secret=self.API_SECRET,
-                                network=Network.celo.value,
+                                network='celo',
                                 query={
                                     'walletAddress': self.WALLET_ADDRESS
                                 }))
@@ -35,14 +36,14 @@ class UnitTestUtils(UnitTestBase):
         }
         position = create_position(api_key=self.API_KEY,
                                    api_secret=self.API_SECRET,
-                                   network=Network.celo.value,
+                                   network='celo',
                                    post_body=post_body)
         print(position)
         self.assertIsNotNone(position)
 
     def test_position_detail(self):
         position_details = get_position_details(wallet_address=self.WALLET_ADDRESS,
-                                                network=Network.celo.value,
+                                                network='celo',
                                                 api_key=self.API_KEY,
                                                 api_secret=self.API_SECRET)
         print(position_details)
@@ -58,14 +59,14 @@ class UnitTestUtils(UnitTestBase):
     #     }
     #     result = remove_liquidity_and_burn(api_key=self.API_KEY,
     #                                        api_secret=self.API_SECRET,
-    #                                        network=Network.celo.value,
+    #                                        network='celo',
     #                                        post_body=post_body)
     #     print(result)
 
 
 class UnitTestQuote(UnitTestBase):
     def test_get_erc20_balance(self):
-        result = get_erc20_balance(network=Network.celo.value,
+        result = get_erc20_balance(network='celo',
                                    query={
                                        'walletAddress': self.WALLET_ADDRESS,
                                        'erc20TokenAddress': '0x471ece3750da237f93b8e339c536989b8978a438',
@@ -76,7 +77,7 @@ class UnitTestQuote(UnitTestBase):
         self.assertIsNotNone(result)
 
     def test_get_order_book(self):
-        result = get_order_book(network=Network.celo.value,
+        result = get_order_book(network='celo',
                                 query={
                                     'symbol': 'CELO/cUSD',
                                     'side': 'bid',
@@ -113,7 +114,7 @@ class TestSwap(UnitTestQuote):
         }
         result = create_order(api_key=self.API_KEY,
                               api_secret=self.API_SECRET,
-                              network=Network.celo.value,
+                              network='celo',
                               post_body=post_body)
         print(result)
         self.assertIsNotNone(result)

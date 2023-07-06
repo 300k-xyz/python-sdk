@@ -6,7 +6,9 @@ import time
 from typing import Dict, Optional, Union
 from urllib.parse import urljoin
 import requests
-from tkpysdk import create_300k_header, BASE_URL_300K_API
+from tkpysdk.utils.signature import create_300k_header
+from tkpysdk.utils.shared_utils import process_response
+from tkpysdk.utils.config import BASE_URL_300K_API
 
 
 def get_order_history(
@@ -38,4 +40,5 @@ def get_order_history(
                                  api_key=api_key,
                                  post_data=query)
     res = requests.get(url, params=query, headers=headers)
-    return res.json()
+
+    return process_response(res)

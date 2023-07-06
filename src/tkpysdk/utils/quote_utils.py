@@ -8,7 +8,9 @@ from dataclasses import dataclass
 import requests
 from typing import Optional, Tuple, List, Dict, Any
 
-from tkpysdk import create_300k_header, BASE_URL_300K_API
+from tkpysdk.utils.signature import create_300k_header
+from tkpysdk.utils.config import BASE_URL_300K_API
+from tkpysdk.utils.shared_utils import process_response
 
 QuoteArr = Tuple[float, float, str, str, float]
 
@@ -43,7 +45,7 @@ def get_erc20_balance(api_key: str, api_secret: str, network: str, query: Dict[s
                                  api_key=api_key,
                                  post_data={})
     res = requests.get(url, params=query, headers=headers)
-    return res.json()
+    return process_response(res)
 
 
 def get_order_book(api_key: str, api_secret: str, network: str, query: Dict[str, any]) -> Dict[str, Any]:
@@ -83,4 +85,4 @@ def get_order_book(api_key: str, api_secret: str, network: str, query: Dict[str,
     if not amount_usd and not amount_quote:
         raise ValueError("either amountQuote or amountUSD is required")
     res = requests.get(url, params=query, headers=headers)
-    return res.json()
+    return process_response(res)

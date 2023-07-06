@@ -3,11 +3,11 @@
 # Version: 1.0
 # Description:
 from typing import Optional, Dict, Any
-
-import time
 import requests
 
-from tkpysdk import create_300k_header, BASE_URL_300K_API
+from tkpysdk.utils.signature import create_300k_header
+from tkpysdk.utils.config import BASE_URL_300K_API
+from tkpysdk.utils.shared_utils import process_response
 
 
 def create_order(api_key: str, api_secret: str, network: str, post_body: Dict[str, Any],
@@ -46,4 +46,4 @@ def create_order(api_key: str, api_secret: str, network: str, post_body: Dict[st
                                  api_secret=api_secret,
                                  post_data=post_body)
     res = requests.post(url, json=post_body, timeout=timeout, headers=headers)
-    return res.json()
+    return process_response(res)

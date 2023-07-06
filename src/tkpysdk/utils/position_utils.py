@@ -4,10 +4,11 @@
 # Description:
 
 from typing import Any, Dict, List
-import time
 import requests
 
-from tkpysdk import create_300k_header, BASE_URL_300K_API
+from tkpysdk.utils.signature import create_300k_header
+from tkpysdk.utils.config import BASE_URL_300K_API
+from tkpysdk.utils.shared_utils import process_response
 
 
 def create_position(api_key: str,
@@ -63,7 +64,7 @@ def create_position(api_key: str,
                                  api_secret=str(api_secret),
                                  post_data=post_body)
     res = requests.post(url, json=post_body, headers=headers, timeout=120)
-    return res.json()
+    return process_response(res)
 
 
 def get_position_detail(network: str,
@@ -114,7 +115,7 @@ def get_position_detail(network: str,
                                  api_secret=api_secret,
                                  post_data={})
     res = requests.get(url, headers=headers)
-    return res.json()
+    return process_response(res)
 
 
 def get_position_details(network: str,
@@ -166,7 +167,7 @@ def get_position_details(network: str,
                                  api_secret=api_secret,
                                  post_data={})
     res = requests.get(url, headers=headers)
-    return res.json()
+    return process_response(res)
 
 
 def remove_liquidity_and_burn(api_key: str, api_secret: str, network: str, post_body: Dict[str, any]):
@@ -198,7 +199,4 @@ def remove_liquidity_and_burn(api_key: str, api_secret: str, network: str, post_
                                  api_secret=api_secret,
                                  post_data=post_body)
     res = requests.post(url, json=post_body, headers=headers, timeout=120)
-    if res.status_code == 200:
-        return res.json()
-    else:
-        return res.text
+    return process_response(res)
